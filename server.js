@@ -14,6 +14,14 @@ const tasks = [
     }
 ];
 
+const createTask = data => {
+    return {
+        id: genId(),
+        task: data.task,
+        done: false
+    }
+}
+
 function logRequest(req, next) {
     let {method, url} = req;
     console.log(`[${new Date().toISOString()}] ${method} ${url}`);
@@ -31,7 +39,8 @@ app.get('/tasks', function (req, res) {
 
 //curl localhost:3000/tasks -d '{ "task": "New task" }' -H "Content-Type: application/json"
 app.post('/tasks', (req, res) => {
-    const task = req.body;
+    const task = createTask(req.body);
+    console.log(task)
     tasks.push(task);
     res.json(tasks);
 });
