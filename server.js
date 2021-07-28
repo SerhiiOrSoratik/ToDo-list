@@ -44,7 +44,6 @@ app.get('/tasks', function (req, res) {
 //http POST :3000/tasks task="new task"
 app.post('/tasks', (req, res) => {
     const task = createTask(req.body);
-    console.log(task)
     tasks.push(task);
     res.json(tasks);
 });
@@ -52,14 +51,8 @@ app.post('/tasks', (req, res) => {
 //curl -X PATCH localhost:3000/tasks/1 -d '{"done": true}' -H "Content-Type: application/json"
 //http PATCH :3000/tasks/1 done=true
 app.patch('/tasks/:id', (req, res) => {
-
-
     const id = parseInt(req.params.id);
     let task = tasks.find(task => task.id === id);
-    
-    console.log(task)
-
-
     if (task) {
         Object.assign(task, req.body);
         res.json(task);
