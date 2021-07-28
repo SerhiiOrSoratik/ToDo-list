@@ -5,12 +5,14 @@ const inc = (init = 0) => () => ++init;
 const genId = inc();
 
 const tasks = [
-    {   _id: genId(),
-        task: 'Show task'
+    {   id: genId(),
+        task: 'Show task',
+        done: false
     },
     {
-        _id: genId(),
-        task: 'Add task'
+        id: genId(),
+        task: 'Add task',
+        done: false
     }
 ];
 
@@ -33,11 +35,13 @@ app.use((req, res, next) => {
     logRequest(req, next);
 })
 // curl localhost:3000/tasks
+// http :3000/tasks
 app.get('/tasks', function (req, res) {
     res.json(tasks);
   });
 
 //curl localhost:3000/tasks -d '{ "task": "New task" }' -H "Content-Type: application/json"
+//http POST :3000/tasks task="new task"
 app.post('/tasks', (req, res) => {
     const task = createTask(req.body);
     console.log(task)
@@ -46,11 +50,12 @@ app.post('/tasks', (req, res) => {
 });
 
 //curl -X PATCH localhost:3000/tasks/1 -d '{"done": true}' -H "Content-Type: application/json"
+//http PATCH :3000/tasks/1 done=true
 app.patch('/tasks/:id', (req, res) => {
 
 
     const id = parseInt(req.params.id);
-    let task = tasks.find(task => task._id === id);
+    let task = tasks.find(task => task.id === id);
     
     console.log(task)
 
