@@ -1,8 +1,12 @@
-const {getAllComment} = require('../models ')
+const {getAllComment, addComment} = require('../models ')
 
 class CommentController {
     getAllComment() {
         return getAllComment();
+    }
+
+    createComment(req) {
+        return addComment(req.body)
     }
 
 }

@@ -1,3 +1,5 @@
+const {getTasks} = require('./task-model')
+
 const inc = (init = 0) => () => ++init;
 const genId = inc();
 
@@ -19,5 +21,14 @@ const getAllComment = () => {
     return comments;
 }
 
+const addComment = (body) => {
+    const taskId = body.taskId;
+    let tasks = getTasks();
+    if (tasks.findIndex(taskId) !== -1) {
+        const comment = createComment(body);
+        comments.push(comment);
+        return comments;
+    }
+}
 
-module.exports = {getAllComment}
+module.exports = {getAllComment, addComment}
