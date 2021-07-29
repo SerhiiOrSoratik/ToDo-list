@@ -15,16 +15,20 @@ router.post('/', (req, res) => {
     res.json(controller.createTask(req));
 });
 
-// //curl -X PATCH localhost:3000/tasks/1 -d '{"done": true}' -H "Content-Type: application/json"
-// //http PATCH :3000/tasks/1 done=true
+//curl -X PATCH localhost:3000/tasks/1 -d '{"done": true}' -H "Content-Type: application/json"
+//http PATCH :3000/tasks/1 done=true
 router.patch('/:id', (req, res) => {
     res.json(controller.modificateTask(req, res));
 });
 
+//http DELETE :3000/tasks/1 
 router.delete('/:id', (req, res) => {
     res.end(controller.deleteTask(req, res));
 });
 
-module.exports = router;
+//http PATCH :3000/tasks/1 task="newnewnew" done=true
+router.put('/:id', (req, res) => {
+    res.end(controller.replaceTask(req, res));
+})
 
-// export default router;
+module.exports = router;

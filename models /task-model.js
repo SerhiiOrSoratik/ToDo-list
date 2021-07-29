@@ -2,15 +2,8 @@ const inc = (init = 0) => () => ++init;
 const genId = inc();
 
 const tasks = [
-    {   id: genId(),
-        task: 'Show task',
-        done: false
-    },
-    {
-        id: genId(),
-        task: 'Add task',
-        done: false
-    }
+    {   id: genId(), task: 'Show task', done: false },
+    {   id: genId(), task: 'Add task', done: false }
 ];
 
 const createTask = data => {
@@ -45,10 +38,15 @@ const deleteTask = (req, res) => {
     return('task deleted');
 }
 
-const logRequest = (req, next) => {
-    let {method, url} = req;
-    console.log(`[${new Date().toISOString()}] ${method} ${url}`);
-    next();
+
+const replaceTask = (req, res) => {
+    const id = parseInt(req.params.id);
+    tasks[id] = {
+        id: id,
+        task: req.body.task,
+        done: req.body.done
+    }
+    return tasks;
 }
 
-module.exports = {getTasks, logRequest, addTask, modificateTask, deleteTask}
+module.exports = {getTasks, addTask, modificateTask, deleteTask, replaceTask}

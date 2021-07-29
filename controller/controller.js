@@ -1,4 +1,4 @@
-const {getTasks, modificateTask, addTask, deleteTask} = require('../models ')
+const {getTasks, modificateTask, addTask, deleteTask, replaceTask} = require('../models ')
 
 class Controller {
     getTasks() {
@@ -15,6 +15,10 @@ class Controller {
 
     deleteTask(req, res) {
         return deleteTask(req, res);
+    }
+
+    replaceTask(req, res) {
+        return replaceTask(req, res);
     }
 }
 
