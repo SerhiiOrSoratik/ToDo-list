@@ -54,6 +54,12 @@ router.post('/:taskId/comment', (req, res) => {
     res.json(answer);
 })
 
+// http PATCH :3000/tasks/1/comment/1 text="super duper new comment"
+router.patch('/:taskId/comment/:id', (req, res) => {
+    const answer = controller.editComment(req);
+    res.json(answer);
+})
+
 const checkAnswer = (answer, res) => {
     if (answer !== false) {
         res.json(answer);

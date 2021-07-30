@@ -45,7 +45,8 @@ const addComment = (options, tasks) => {
 
 // http PATCH :3000/comments/1 text="updated comment" 
 const modificateComment = (id, options) => {
-    let comment = comments.find(comment => comment.id === id);
+    let comment = comments.find(comment => comment.id === +id);
+    console.log(comment)
     if (comment !== undefined) {
     Object.assign(comment, options);
     return comment;

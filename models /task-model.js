@@ -1,3 +1,4 @@
+const { options } = require('../routes');
 const commentModel = require('./comment')
 
 const inc =
@@ -31,20 +32,6 @@ const getTask = (id) => {
     return false;
   }
 };
-
-const getTaskComment = (id, comments) => {
-    const taskComments = [];
-    comments.forEach(comment => {
-        if (comment.taskId === id) {
-            taskComments.push(comment);
-        }
-    })
-    return taskComments;
-}
-
-const createTaskComment = (options) => {
-  return (commentModel.addComment(options, tasks));
-} 
 
 const modificateTask = (id, options) => {
   const task = tasks.find((task) => task.id === id);
@@ -84,4 +71,24 @@ const replaceTask = (id, options) => {
   }
 };
 
-module.exports = { getTasks, addTask, createTaskComment, getTaskComment, modificateTask, deleteTask, replaceTask, getTask };
+const getTaskComment = (id, comments) => {
+  const taskComments = [];
+  comments.forEach(comment => {
+      if (comment.taskId === id) {
+          taskComments.push(comment);
+      }
+  })
+  return taskComments;
+}
+
+const createTaskComment = (options) => {
+  return (commentModel.addComment(options, tasks));
+} 
+
+const editTaskComment = (options) => {
+  return (commentModel.modificateComment(options));
+}
+
+
+
+module.exports = { getTasks, addTask, editTaskComment, createTaskComment, getTaskComment, modificateTask, deleteTask, replaceTask, getTask };
