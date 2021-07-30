@@ -60,7 +60,7 @@ const addTask = (body) => {
 
 const deleteTask = (id) => {
   if (tasks.findIndex((task) => task.id === id) !== -1) {
-    tasks.splice(id - 1, 1);
+    tasks.splice(id - 1 , 1);
     return "task deleted";
   } else {
     return false;
@@ -69,7 +69,7 @@ const deleteTask = (id) => {
 
 const replaceTask = (id, body) => {
   if (tasks.findIndex((task) => task.id === id) !== -1) {
-    tasks[id] = {
+    tasks[id - 1] = {
       id: id,
       task: body.task,
       done: body.done,

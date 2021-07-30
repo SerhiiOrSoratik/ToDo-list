@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const comment = require('../controller/comment')
+const comment = require('../controller/CommentController')
 
 // http :3000/comments/
 router.get('/', (req, res) => {
