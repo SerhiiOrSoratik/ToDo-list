@@ -1,5 +1,4 @@
 const taskModel = require('./task-model');
-const comment = require('./comment')
+const commentModel = require('./comment')
 
-module.exports = taskModel; 
-module.exports = comment;
+module.exports = {taskModel, commentModel}; 
