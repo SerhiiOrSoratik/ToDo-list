@@ -21,8 +21,13 @@ const getTasks = () => {
 const modificateTask = (req, res) => {
     const id = parseInt(req.params.id);
     let task = tasks.find(task => task.id === id);
+    if (task !== undefined) {
     Object.assign(task, req.body);
     return task;
+    }
+    else {
+        return false;
+    }
 }
 
 const addTask = (body) => {
@@ -33,20 +38,32 @@ const addTask = (body) => {
 
 const deleteTask = (req, res) => {
     const id = parseInt(req.params.id);
-    tasks.splice(id - 1, 1);
-    console.log(tasks)
-    return('task deleted');
+    if (tasks.findIndex(task => task.id === id) !== -1) {
+        tasks.splice(id - 1, 1);
+        console.log(tasks)
+        return('task deleted');
+        }
+    else {
+        return false;
+    }
+    
 }
 
 
 const replaceTask = (req, res) => {
     const id = parseInt(req.params.id);
-    tasks[id] = {
-        id: id,
-        task: req.body.task,
-        done: req.body.done
+    if (tasks.findIndex(task => task.id === id) !== -1) {
+        tasks[id] = {
+            id: id,
+            task: req.body.task,
+            done: req.body.done
+        }
+        return tasks;
+        }
+    else {
+        return false;
     }
-    return tasks;
+    
 }
 
 module.exports = {getTasks, addTask, modificateTask, deleteTask, replaceTask}

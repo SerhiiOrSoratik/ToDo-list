@@ -7,6 +7,16 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    res.json(comment.createComment(req));
+    const answer = comment.createComment(req);
+    if (answer !== false) {
+        res.json(answer);
+    }
+    else {
+        res.status(404);
+        res.end('Task not found');
+    }
+    
 })
+
+
 module.exports = router;

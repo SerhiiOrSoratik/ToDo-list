@@ -18,17 +18,38 @@ router.post('/', (req, res) => {
 //curl -X PATCH localhost:3000/tasks/1 -d '{"done": true}' -H "Content-Type: application/json"
 //http PATCH :3000/tasks/1 done=true
 router.patch('/:id', (req, res) => {
-    res.json(controller.modificateTask(req, res));
+    const answer = controller.modificateTask(req,res);
+    if (answer !== false) {
+        res.json(answer);
+    }
+    else {
+        res.status(400);
+        res.end('Task not found');
+    }
 });
 
 //http DELETE :3000/tasks/1 
 router.delete('/:id', (req, res) => {
-    res.end(controller.deleteTask(req, res));
+    const answer = controller.deleteTask(req, res);
+    if (answer !== false) {
+        res.json(answer);
+    }
+    else {
+        res.status(400);
+        res.end('Task not found');
+    }
 });
 
-//http PATCH :3000/tasks/1 task="newnewnew" done=true
+//http PUT :3000/tasks/1 task="newnewnew" done=true
 router.put('/:id', (req, res) => {
-    res.end(controller.replaceTask(req, res));
+    const answer = controller.replaceTask(req, res);
+    if (answer !== false) {
+        res.json(answer);
+    }
+    else {
+        res.status(400);
+        res.end('Task not found');
+    }
 })
 
 module.exports = router;

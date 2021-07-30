@@ -22,12 +22,18 @@ const getAllComment = () => {
 }
 
 const addComment = (body) => {
-    const taskId = body.taskId;
+    const taskId = parseInt(body.taskId);
     let tasks = getTasks();
-    if (tasks.findIndex(taskId) !== -1) {
+    console.log(tasks);
+    console.log(taskId)
+    console.log(tasks.findIndex(task => task.id === taskId))
+    if (tasks.findIndex(task => task.id === taskId) !== -1) {
         const comment = createComment(body);
         comments.push(comment);
         return comments;
+    }
+    else {
+        return false;
     }
 }
 
