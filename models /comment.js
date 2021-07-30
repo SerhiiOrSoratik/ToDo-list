@@ -21,12 +21,22 @@ const getAllComment = () => {
     return comments;
 }
 
+const getComment =(req) => {
+    const id = parseInt(req.params.id);
+    let comment = comments.find(comment => comment.id === id);
+    if (comment !== undefined) {
+        return comment;
+    }
+    else {
+        return false;
+    }
+}
+
+// http POST :3000/comments/ text="new comment" taskId=2
+
 const addComment = (body) => {
     const taskId = parseInt(body.taskId);
     let tasks = getTasks();
-    console.log(tasks);
-    console.log(taskId)
-    console.log(tasks.findIndex(task => task.id === taskId))
     if (tasks.findIndex(task => task.id === taskId) !== -1) {
         const comment = createComment(body);
         comments.push(comment);
@@ -37,4 +47,31 @@ const addComment = (body) => {
     }
 }
 
-module.exports = {getAllComment, addComment}
+// http PATCH :3000/comments/1 text="updated comment" 
+
+const modificateComment = (req) => {
+    const id = parseInt(req.params.id);
+    let comment = comments.find(comment => comment.id === id);
+    if (comment !== undefined) {
+    Object.assign(comment, req.body);
+    return comment;
+    }
+    else {
+        return false;
+    }
+}
+
+// http DELETE :3000/comments/1
+
+const deleteComment = (req) => {
+    const id = parseInt(req.params.id);
+    if (comments.findIndex(comment => comment.id === id) !== -1) {
+        comments.splice(id - 1, 1);
+        return 'comment delete';
+    }
+    else {
+        return false;
+    }
+}
+
+module.exports = {getAllComment, addComment, modificateComment, deleteComment, getComment}

@@ -5,6 +5,10 @@ class Controller {
         return taskModel.getTasks();
     }
 
+    getTask(req) {
+        return taskModel.getTask(req);
+    }
+
     createTask(req) {
         return taskModel.addTask(req.body);
     }
