@@ -1,4 +1,5 @@
 const {taskModel} = require('../models ')
+const {commentModel} = require('../models ')
 
 class Controller {
     getTasks() {
@@ -12,7 +13,8 @@ class Controller {
 
     getTaskComment(req) {
         const id = parseInt(req.params.id);
-        return taskModel.getTaskComment(id);
+        const comments = commentModel.getAllComment();
+        return taskModel.getTaskComment(id, comments);
     }
 
     createTask(req) {
@@ -27,6 +29,7 @@ class Controller {
 
     deleteTask(req) {
         const id = parseInt(req.params.id);
+        commentModel.deleteCommentsTask(id);
         return taskModel.deleteTask(id);
     }
 

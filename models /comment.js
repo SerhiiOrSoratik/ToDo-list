@@ -1,11 +1,9 @@
-const taskModel = require('./task-model')
-
 const inc = (init = 0) => () => ++init;
 const genId = inc();
 
 const comments = [
     {   id: genId(), text: 'First comment', taskId: 1 },
-    {   id: genId(), text: 'Second comment', taskId: 1 }
+    {   id: genId(), text: 'Second comment', taskId: 2 },
 ];
 
 const createComment = data => {
@@ -67,4 +65,15 @@ const deleteComment = (id) => {
     }
 }
 
-module.exports = {getAllComment, addComment, modificateComment, deleteComment, getComment}
+const deleteCommentsTask = (taskId) => {
+    let len = comments.length;
+    for(let i = 0; i < len - 1; i++) {
+        if (comments[i].taskId === taskId) {
+            comments.splice(i, 1);
+            continue;
+        }
+    }
+       
+}
+
+module.exports = {getAllComment, addComment, deleteCommentsTask, modificateComment, deleteComment, getComment}

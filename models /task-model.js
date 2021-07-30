@@ -32,8 +32,7 @@ const getTask = (id) => {
   }
 };
 
-const getTaskComment = (id) => {
-    const comments = commentModel.getAllComment();
+const getTaskComment = (id, comments) => {
     const taskComments = [];
     comments.forEach(comment => {
         if (comment.taskId === id) {
