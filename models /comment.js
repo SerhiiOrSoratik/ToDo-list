@@ -30,10 +30,10 @@ const getComment = (id) => {
 }
 
 // http POST :3000/comments/ text="new comment" taskId=2
-const addComment = (body, tasks) => {
-    const taskId = parseInt(body.taskId);
+const addComment = (options, tasks) => {
+    const taskId = parseInt(options.taskId);
     if (tasks.findIndex(task => task.id === taskId) !== -1) {
-        const comment = createComment(body);
+        const comment = createComment(options);
         comments.push(comment);
         return comments;
     }
@@ -42,11 +42,12 @@ const addComment = (body, tasks) => {
     }
 }
 
+
 // http PATCH :3000/comments/1 text="updated comment" 
-const modificateComment = (id, body) => {
+const modificateComment = (id, options) => {
     let comment = comments.find(comment => comment.id === id);
     if (comment !== undefined) {
-    Object.assign(comment, body);
+    Object.assign(comment, options);
     return comment;
     }
     else {
@@ -58,7 +59,7 @@ const modificateComment = (id, body) => {
 const deleteComment = (id) => {
     if (comments.findIndex(comment => comment.id === id) !== -1) {
         comments.splice(id - 1, 1);
-        return 'comment delete';
+        return true;
     }
     else {
         return false;

@@ -32,7 +32,14 @@ router.patch('/:id', (req, res) => {
 // http DELETE :3000/tasks/1 
 router.delete('/:id', (req, res) => {
     const answer = controller.deleteTask(req, res);
-    checkAnswer(answer, res);
+    if (answer !== false) {
+        res.status(200);
+        res.end();
+    }
+    else {
+        res.status(400);
+        res.end('Task not found');
+    }
 });
 
 // http PUT :3000/tasks/1 task="newnewnew" done=true
@@ -40,6 +47,12 @@ router.put('/:id', (req, res) => {
     const answer = controller.replaceTask(req, res);
     checkAnswer(answer, res);
 });
+
+// http POST :3000/tasks/1/comment text="aaaa"
+router.post('/:taskId/comment', (req, res) => {
+    const answer = controller.addComment(req);
+    res.json(answer);
+})
 
 const checkAnswer = (answer, res) => {
     if (answer !== false) {

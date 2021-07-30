@@ -42,18 +42,22 @@ const getTaskComment = (id, comments) => {
     return taskComments;
 }
 
-const modificateTask = (id, body) => {
+const createTaskComment = (options) => {
+  return (commentModel.addComment(options, tasks));
+} 
+
+const modificateTask = (id, options) => {
   const task = tasks.find((task) => task.id === id);
   if (task !== undefined) {
-    Object.assign(task, body);
+    Object.assign(task, options);
     return task;
   } else {
     return false;
   }
 };
 
-const addTask = (body) => {
-  const task = createTask(body);
+const addTask = (options) => {
+  const task = createTask(options);
   tasks.push(task);
   return tasks;
 };
@@ -61,18 +65,18 @@ const addTask = (body) => {
 const deleteTask = (id) => {
   if (tasks.findIndex((task) => task.id === id) !== -1) {
     tasks.splice(id - 1 , 1);
-    return "task deleted";
+    return true;
   } else {
     return false;
   }
 };
 
-const replaceTask = (id, body) => {
+const replaceTask = (id, options) => {
   if (tasks.findIndex((task) => task.id === id) !== -1) {
     tasks[id - 1] = {
       id: id,
-      task: body.task,
-      done: body.done,
+      task: options.task,
+      done: options.done,
     };
     return tasks;
   } else {
@@ -80,4 +84,4 @@ const replaceTask = (id, body) => {
   }
 };
 
-module.exports = { getTasks, addTask, getTaskComment, modificateTask, deleteTask, replaceTask, getTask };
+module.exports = { getTasks, addTask, createTaskComment, getTaskComment, modificateTask, deleteTask, replaceTask, getTask };

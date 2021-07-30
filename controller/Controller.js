@@ -38,6 +38,12 @@ class Controller {
         const body = req.body;
         return taskModel.replaceTask(id, body);
     }
+
+    addComment(req) {
+        const options = req.body;
+        options.taskId = req.params.taskId
+        return taskModel.createTaskComment(options);
+    }
 }
 
 module.exports = new Controller();

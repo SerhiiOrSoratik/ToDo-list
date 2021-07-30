@@ -34,7 +34,14 @@ router.patch('/:id', (req, res) => {
 // http DELETE :3000/comments/2
 router.delete('/:id', (req, res) => {
     const answer = comment.deleteComment(req);
-    checkAnswer(answer, res);
+    if (answer !== false) {
+        res.status(200);
+        res.end();
+    }
+    else {
+        res.status(400);
+        res.end('Task not found');
+    }
 });
 
 const checkAnswer = (answer, res) => {
