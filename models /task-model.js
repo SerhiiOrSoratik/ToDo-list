@@ -1,3 +1,5 @@
+const commentModel = require('./comment')
+
 const inc =
   (init = 0) =>
   () =>
@@ -21,10 +23,8 @@ const getTasks = () => {
   return tasks;
 };
 
-const getTask = (req) => {
-  const id = parseInt(req.params.id);
-  console.log(tasks)
-  let task = tasks.find((task) => task.id === id);
+const getTask = (id) => {
+  const task = tasks.find((task) => task.id === id);
   if (task !== undefined) {
     return task;
   } else {
@@ -32,11 +32,21 @@ const getTask = (req) => {
   }
 };
 
-const modificateTask = (req, res) => {
-  const id = parseInt(req.params.id);
-  let task = tasks.find((task) => task.id === id);
+const getTaskComment = (id) => {
+    const comments = commentModel.getAllComment();
+    const taskComments = [];
+    comments.forEach(comment => {
+        if (comment.taskId === id) {
+            taskComments.push(comment);
+        }
+    })
+    return taskComments;
+}
+
+const modificateTask = (id, body) => {
+  const task = tasks.find((task) => task.id === id);
   if (task !== undefined) {
-    Object.assign(task, req.body);
+    Object.assign(task, body);
     return task;
   } else {
     return false;
@@ -49,8 +59,7 @@ const addTask = (body) => {
   return tasks;
 };
 
-const deleteTask = (req, res) => {
-  const id = parseInt(req.params.id);
+const deleteTask = (id) => {
   if (tasks.findIndex((task) => task.id === id) !== -1) {
     tasks.splice(id - 1, 1);
     return "task deleted";
@@ -59,13 +68,12 @@ const deleteTask = (req, res) => {
   }
 };
 
-const replaceTask = (req, res) => {
-  const id = parseInt(req.params.id);
+const replaceTask = (id, body) => {
   if (tasks.findIndex((task) => task.id === id) !== -1) {
     tasks[id] = {
       id: id,
-      task: req.body.task,
-      done: req.body.done,
+      task: body.task,
+      done: body.done,
     };
     return tasks;
   } else {
@@ -73,4 +81,4 @@ const replaceTask = (req, res) => {
   }
 };
 
-module.exports = { getTasks, addTask, modificateTask, deleteTask, replaceTask, getTask };
+module.exports = { getTasks, addTask, getTaskComment, modificateTask, deleteTask, replaceTask, getTask };

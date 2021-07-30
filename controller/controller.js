@@ -6,23 +6,34 @@ class Controller {
     }
 
     getTask(req) {
-        return taskModel.getTask(req);
+        const id = parseInt(req.params.id);
+        return taskModel.getTask(id);
+    }
+
+    getTaskComment(req) {
+        const id = parseInt(req.params.id);
+        return taskModel.getTaskComment(id);
     }
 
     createTask(req) {
         return taskModel.addTask(req.body);
     }
 
-    modificateTask(req, res) {
-        return taskModel.modificateTask(req, res);
+    modificateTask(req) {
+        const id = parseInt(req.params.id);
+        const body = req.body;
+        return taskModel.modificateTask(id, body);
     }
 
-    deleteTask(req, res) {
-        return taskModel.deleteTask(req, res);
+    deleteTask(req) {
+        const id = parseInt(req.params.id);
+        return taskModel.deleteTask(id);
     }
 
-    replaceTask(req, res) {
-        return taskModel.replaceTask(req, res);
+    replaceTask(req) {
+        const id = parseInt(req.params.id);
+        const body = req.body;
+        return taskModel.replaceTask(id, body);
     }
 }
 

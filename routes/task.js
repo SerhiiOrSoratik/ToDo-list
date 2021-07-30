@@ -10,13 +10,7 @@ router.get('/', function (req, res) {
 
 router.get('/:id', (req, res) => {
     const answer = controller.getTask(req);
-    if (answer !== false) {
-        res.json(answer);
-    }
-    else {
-        res.status(404);
-        res.end('Task not found');
-    }
+    checkAnswer(answer, res);;
 });
 
 
@@ -30,30 +24,28 @@ router.post('/', (req, res) => {
 //http PATCH :3000/tasks/1 done=true
 router.patch('/:id', (req, res) => {
     const answer = controller.modificateTask(req,res);
-    if (answer !== false) {
-        res.json(answer);
-    }
-    else {
-        res.status(400);
-        res.end('Task not found');
-    }
+    checkAnswer(answer, res);
 });
 
 //http DELETE :3000/tasks/1 
 router.delete('/:id', (req, res) => {
     const answer = controller.deleteTask(req, res);
-    if (answer !== false) {
-        res.json(answer);
-    }
-    else {
-        res.status(400);
-        res.end('Task not found');
-    }
+    checkAnswer(answer, res);
 });
 
 //http PUT :3000/tasks/1 task="newnewnew" done=true
 router.put('/:id', (req, res) => {
     const answer = controller.replaceTask(req, res);
+    checkAnswer(answer, res);
+});
+
+//http :3000/tasks/1/comments
+router.get('/:id/comments', (req, res) => {
+    const answer = controller.getTaskComment(req);
+    checkAnswer(answer, res);
+})
+
+const checkAnswer = (answer, res) => {
     if (answer !== false) {
         res.json(answer);
     }
@@ -61,6 +53,6 @@ router.put('/:id', (req, res) => {
         res.status(400);
         res.end('Task not found');
     }
-})
+}
 
 module.exports = router;

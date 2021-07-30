@@ -1,4 +1,4 @@
-const {getTasks} = require('./task-model')
+const taskModel = require('./task-model')
 
 const inc = (init = 0) => () => ++init;
 const genId = inc();
@@ -21,8 +21,7 @@ const getAllComment = () => {
     return comments;
 }
 
-const getComment =(req) => {
-    const id = parseInt(req.params.id);
+const getComment = (id) => {
     let comment = comments.find(comment => comment.id === id);
     if (comment !== undefined) {
         return comment;
@@ -33,10 +32,8 @@ const getComment =(req) => {
 }
 
 // http POST :3000/comments/ text="new comment" taskId=2
-
-const addComment = (body) => {
+const addComment = (body, tasks) => {
     const taskId = parseInt(body.taskId);
-    let tasks = getTasks();
     if (tasks.findIndex(task => task.id === taskId) !== -1) {
         const comment = createComment(body);
         comments.push(comment);
@@ -48,12 +45,10 @@ const addComment = (body) => {
 }
 
 // http PATCH :3000/comments/1 text="updated comment" 
-
-const modificateComment = (req) => {
-    const id = parseInt(req.params.id);
+const modificateComment = (id, body) => {
     let comment = comments.find(comment => comment.id === id);
     if (comment !== undefined) {
-    Object.assign(comment, req.body);
+    Object.assign(comment, body);
     return comment;
     }
     else {
@@ -62,9 +57,7 @@ const modificateComment = (req) => {
 }
 
 // http DELETE :3000/comments/1
-
-const deleteComment = (req) => {
-    const id = parseInt(req.params.id);
+const deleteComment = (id) => {
     if (comments.findIndex(comment => comment.id === id) !== -1) {
         comments.splice(id - 1, 1);
         return 'comment delete';

@@ -2,21 +2,18 @@ const express = require('express');
 const router = express.Router();
 const comment = require('../controller/comment')
 
+// http :3000/comments/
 router.get('/', (req, res) => {
     res.json(comment.getAllComment());
 });
 
+//http :3000/comments/2
 router.get('/:id', (req, res) => {
     const answer = comment.getComment(req);
-    if (answer !== false) {
-        res.json(answer);
-    }
-    else {
-        res.status(404);
-        res.end('Comment not found');
-    }
+    checkAnswer(answer, res);
 });
 
+//http POST :3000/comments/ text="aaa" taskId=1 
 router.post('/', (req, res) => {
     const answer = comment.createComment(req);
     if (answer !== false) {
@@ -28,27 +25,27 @@ router.post('/', (req, res) => {
     }
 });
 
+// http PATCH :3000/comments/2 text="AEFAFA"
 router.patch('/:id', (req, res) => {
     const answer = comment.modificateComment(req);
+    checkAnswer(answer, res);
+});
+
+// http DELETE :3000/comments/2
+router.delete('/:id', (req, res) => {
+    const answer = comment.deleteComment(req);
+    checkAnswer(answer, res);
+});
+
+const checkAnswer = (answer, res) => {
     if (answer !== false) {
         res.json(answer);
     }
     else {
-        res.status(404);
+        res.status(400);
         res.end('Comment not found');
     }
-});
-
-router.delete('/:id', (req, res) => {
-    const answer = comment.deleteComment(req);
-    if (answer !== false) {
-        res.end(answer);
-    }
-    else {
-        res.status(404);
-        res.end('Comment not found');
-    }
-});
+}
 
 
 

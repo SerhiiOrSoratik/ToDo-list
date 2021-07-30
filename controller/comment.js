@@ -1,8 +1,10 @@
 const {commentModel} = require('../models ')
+const {taskModel} = require('../models ');
 
 class CommentController {
     getComment(req) {
-        return commentModel.getComment(req)
+        const id = parseInt(req.params.id);
+        return commentModel.getComment(id)
     }
 
     getAllComment() {
@@ -10,15 +12,20 @@ class CommentController {
     }
 
     createComment(req) {
-        return commentModel.addComment(req.body)
+        const tasks = taskModel.getTasks();
+        const body = req.body
+        return commentModel.addComment(body, tasks)
     }
 
     modificateComment(req) {
-        return commentModel.modificateComment(req);
+        const id = parseInt(req.params.id);
+        const body = req.body
+        return commentModel.modificateComment(id, body);
     }
 
     deleteComment(req) {
-        return commentModel.deleteComment(req);
+        const id = parseInt(req.params.id);
+        return commentModel.deleteComment(id);
     }
 
 }
