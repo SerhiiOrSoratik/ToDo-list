@@ -12,12 +12,6 @@ class Controller {
         return taskModel.getTask(id);
     }
 
-    getTaskComment(req) {
-        const id = parseInt(req.params.id);
-        const comments = commentModel.getAllComment();
-        return taskModel.getTaskComment(id, comments);
-    }
-
     createTask(req) {
         return taskModel.addTask(req.body);
     }
@@ -38,6 +32,17 @@ class Controller {
         const id = parseInt(req.params.id);
         const body = req.body;
         return taskModel.replaceTask(id, body);
+    }
+
+    getTaskComment(req) {
+        const id = parseInt(req.params.id);
+        const comments = commentModel.getAllComment();
+        return taskModel.getTaskComment(id, comments);
+    }
+
+    getOneTaskComment(req) {
+        const id = parseInt(req.params.id);
+        return 
     }
 
     addComment(req) {

@@ -35,18 +35,16 @@ const addComment = (options, tasks) => {
     if (tasks.findIndex(task => task.id === taskId) !== -1) {
         const comment = createComment(options);
         comments.push(comment);
-        return comments;
+        return comment;
     }
     else {
         return false;
     }
 }
 
-
 // http PATCH :3000/comments/1 text="updated comment" 
 const modificateComment = (id, options) => {
     let comment = comments.find(comment => comment.id === +id);
-    console.log(comment)
     if (comment !== undefined) {
     Object.assign(comment, options);
     return comment;

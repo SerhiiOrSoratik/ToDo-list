@@ -17,12 +17,6 @@ router.post('/', (req, res) => {
     res.json(controller.createTask(req));
 });
 
-// http :3000/tasks/1/comments
-router.get('/:id/comments', (req, res) => {
-    const answer = controller.getTaskComment(req);
-    checkAnswer(answer, res);
-})
-
 // http PATCH :3000/tasks/1 done=true
 router.patch('/:id', (req, res) => {
     const answer = controller.modificateTask(req,res);
@@ -48,17 +42,29 @@ router.put('/:id', (req, res) => {
     checkAnswer(answer, res);
 });
 
+// http :3000/tasks/1/comments
+router.get('/:id/comments', (req, res) => {
+    const answer = controller.getTaskComment(req);
+    checkAnswer(answer, res);
+});
+
+// http :3000/tasks/1/comments/2
+router.get('/:taskId/comments/:id', (req, res) => {
+    const answer = controller.getTaskComment(req);
+    checkAnswer(answer, res);
+});
+
 // http POST :3000/tasks/1/comment text="aaaa"
 router.post('/:taskId/comment', (req, res) => {
     const answer = controller.addComment(req);
     res.json(answer);
-})
+});
 
 // http PATCH :3000/tasks/1/comment/1 text="super duper new comment"
 router.patch('/:taskId/comment/:id', (req, res) => {
     const answer = controller.editComment(req);
     res.json(answer);
-})
+});
 
 const checkAnswer = (answer, res) => {
     if (answer !== false) {

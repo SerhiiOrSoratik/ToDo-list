@@ -81,6 +81,8 @@ const getTaskComment = (id, comments) => {
   return taskComments;
 }
 
+// const getOneTaskComment = ()
+
 const createTaskComment = (options) => {
   return (commentModel.addComment(options, tasks));
 } 
