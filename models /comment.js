@@ -1,14 +1,17 @@
 const inc = (init = 0) => () => ++init;
 const genId = inc();
 
-const comments = [
-    {   id: genId(), text: 'First comment', taskId: 1 },
-    {   id: genId(), text: 'Second comment', taskId: 2 },
+let comments = [
+    {   id: genId(), author: 'Sergo', text: 'First comment', taskId: 1 },
+    {   id: genId(), author: 'Sergo', text: 'First comment', taskId: 1 },
+    {   id: genId(), author: 'Soratik', text: 'Second comment', taskId: 2 },
+    {   id: genId(), author: 'Sergo', text: 'Third comment', taskId: 3 },
 ];
 
 const createComment = data => {
     return {
         id: genId(),
+        author: data.author,
         text: data.text,
         taskId: data.taskId
     }
@@ -29,7 +32,7 @@ const getComment = (id) => {
     }
 }
 
-// http POST :3000/comments/ text="new comment" taskId=2
+// http POST :3000/comments/ author="Soratik" text="new comment" taskId=2
 const addComment = (options, tasks) => {
     const taskId = parseInt(options.taskId);
     if (tasks.findIndex(task => task.id === taskId) !== -1) {
@@ -42,7 +45,7 @@ const addComment = (options, tasks) => {
     }
 }
 
-// http PATCH :3000/comments/1 text="updated comment" 
+// http PATCH :3000/comments/1 text="updated comment" author="Sergo"
 const modificateComment = (id, options) => {
     let comment = comments.find(comment => comment.id === +id);
     if (comment !== undefined) {
@@ -65,6 +68,11 @@ const deleteComment = (id) => {
     }
 }
 
+const deleteCommentFromName = (author) => {
+    comments = comments.filter(comment => comment.author !== author );
+    return true;
+}
+
 const deleteCommentsTask = (taskId) => {
     let len = comments.length;
     for(let i = 0; i < len - 1; i++) {
@@ -72,8 +80,13 @@ const deleteCommentsTask = (taskId) => {
             comments.splice(i, 1);
             continue;
         }
-    }
-       
+    }    
 }
 
-module.exports = {getAllComment, addComment, deleteCommentsTask, modificateComment, deleteComment, getComment}
+const deleteCommentsTaskFromName = (taskId, author) => {
+    comments = comments.filter(comment => {
+        return comment.author !== author || comment.taskId !== +taskId
+    });
+}
+
+module.exports = {getAllComment, deleteCommentsTaskFromName, deleteCommentFromName, addComment, deleteCommentsTask, modificateComment, deleteComment, getComment}

@@ -66,6 +66,19 @@ router.patch('/:taskId/comment/:id', (req, res) => {
     res.json(answer);
 });
 
+router.delete('/:taskId/comment/:author', (req, res) => {
+    
+    const answer = controller.deleteCommentsTaskFromName(req);
+    if (answer !== false) {
+        res.status(200);
+        res.end();
+    }
+    else {
+        res.status(400);
+        res.end('Task not found');
+    }
+})
+
 const checkAnswer = (answer, res) => {
     if (answer !== false) {
         res.json(answer);

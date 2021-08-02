@@ -28,6 +28,11 @@ class CommentController {
         return commentModel.deleteComment(id);
     }
 
+    deleteCommentFromName(req) {
+        const author = req.params.author;
+        return commentModel.deleteCommentFromName(author);
+    }
+
 }
 
 module.exports = new CommentController();

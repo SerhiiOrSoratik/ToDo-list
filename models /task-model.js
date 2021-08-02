@@ -1,4 +1,3 @@
-const { options } = require('../routes');
 const commentModel = require('./comment')
 
 const inc =
@@ -81,8 +80,6 @@ const getTaskComment = (id, comments) => {
   return taskComments;
 }
 
-// const getOneTaskComment = ()
-
 const createTaskComment = (options) => {
   return (commentModel.addComment(options, tasks));
 } 
@@ -91,6 +88,10 @@ const editTaskComment = (options) => {
   return (commentModel.modificateComment(options));
 }
 
+const deleteCommentsTaskFromName = (taskId, author) => {
+  return (commentModel.deleteCommentsTaskFromName(taskId, author));
+}
 
 
-module.exports = { getTasks, addTask, editTaskComment, createTaskComment, getTaskComment, modificateTask, deleteTask, replaceTask, getTask };
+
+module.exports = { getTasks, deleteCommentsTaskFromName, addTask, editTaskComment, createTaskComment, getTaskComment, modificateTask, deleteTask, replaceTask, getTask };

@@ -44,6 +44,19 @@ router.delete('/:id', (req, res) => {
     }
 });
 
+// http DELETE :3000/comments/author/Soratik
+router.delete('/author/:author', (req,res) => {
+    const answer = comment.deleteCommentFromName(req);
+    if (answer !== false) {
+        res.status(200);
+        res.end();
+    }
+    else {
+        res.status(400);
+        res.end('Task not found');
+    }
+});
+
 const checkAnswer = (answer, res) => {
     if (answer !== false) {
         res.json(answer);

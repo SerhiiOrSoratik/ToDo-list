@@ -1,6 +1,5 @@
 const {taskModel} = require('../models ')
 const {commentModel} = require('../models ');
-const { editTaskComment } = require('../models /task-model');
 
 class Controller {
     getTasks() {
@@ -55,6 +54,12 @@ class Controller {
         const options = req.body;
         const id = req.params.id;
         return taskModel.editTaskComment(id, options);
+    }
+
+    deleteCommentsTaskFromName(req) {
+        const taskId = req.params.taskId;
+        const author = req.params.author;
+        return taskModel.deleteCommentsTaskFromName(taskId, author);
     }
 }
 
