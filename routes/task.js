@@ -42,32 +42,29 @@ router.put('/:id', (req, res) => {
     checkAnswer(answer, res);
 });
 
+
+
+
 // http :3000/tasks/1/comments
 router.get('/:id/comments', (req, res) => {
     const answer = controller.getTaskComment(req);
     checkAnswer(answer, res);
 });
 
-// http :3000/tasks/1/comments/2
-router.get('/:taskId/comments/:id', (req, res) => {
-    const answer = controller.getTaskComment(req);
-    checkAnswer(answer, res);
-});
-
-// http POST :3000/tasks/1/comment text="aaaa"
+// http POST :3000/tasks/1/comment text="aaaa" author="Sorat"
 router.post('/:taskId/comment', (req, res) => {
     const answer = controller.addComment(req);
     res.json(answer);
 });
 
-// http PATCH :3000/tasks/1/comment/1 text="super duper new comment"
+// http PATCH :3000/tasks/1/comment/1 text="update coment" author="Sergo"
 router.patch('/:taskId/comment/:id', (req, res) => {
     const answer = controller.editComment(req);
     res.json(answer);
 });
 
+// http DELETE :3000/tasks/2/comment/Sergo
 router.delete('/:taskId/comment/:author', (req, res) => {
-    
     const answer = controller.deleteCommentsTaskFromName(req);
     if (answer !== false) {
         res.status(200);

@@ -13,7 +13,7 @@ router.get('/:id', (req, res) => {
     checkAnswer(answer, res);
 });
 
-//http POST :3000/comments/ text="aaa" taskId=1 
+//http POST :3000/comments/ text="aaa" taskId=1 author="Sergo"
 router.post('/', (req, res) => {
     const answer = comment.createComment(req);
     if (answer !== false) {
@@ -25,7 +25,7 @@ router.post('/', (req, res) => {
     }
 });
 
-// http PATCH :3000/comments/2 text="AEFAFA"
+// http PATCH :3000/comments/2 text="AEFAFA" author="Soratik"
 router.patch('/:id', (req, res) => {
     const answer = comment.modificateComment(req);
     checkAnswer(answer, res);

@@ -3,8 +3,8 @@ const genId = inc();
 
 let comments = [
     {   id: genId(), author: 'Sergo', text: 'First comment', taskId: 1 },
-    {   id: genId(), author: 'Sergo', text: 'First comment', taskId: 1 },
-    {   id: genId(), author: 'Soratik', text: 'Second comment', taskId: 2 },
+    {   id: genId(), author: 'Sergo', text: 'Second comment', taskId: 1 },
+    {   id: genId(), author: 'Soratik', text: 'Second comment', taskId : 2},
     {   id: genId(), author: 'Sergo', text: 'Third comment', taskId: 3 },
 ];
 

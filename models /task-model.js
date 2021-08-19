@@ -12,6 +12,7 @@ const tasks = [
 ];
 
 const createTask = (data) => {
+
   return {
     id: genId(),
     task: data.task,
@@ -84,8 +85,8 @@ const createTaskComment = (options) => {
   return (commentModel.addComment(options, tasks));
 } 
 
-const editTaskComment = (options) => {
-  return (commentModel.modificateComment(options));
+const editTaskComment = (id, options) => {
+  return (commentModel.modificateComment(id, options));
 }
 
 const deleteCommentsTaskFromName = (taskId, author) => {

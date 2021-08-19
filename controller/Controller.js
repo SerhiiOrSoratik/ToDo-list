@@ -12,6 +12,7 @@ class Controller {
     }
 
     createTask(req) {
+        console.log(req.body)
         return taskModel.addTask(req.body);
     }
 
